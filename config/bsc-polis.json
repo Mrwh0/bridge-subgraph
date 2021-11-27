@@ -1,6 +1,6 @@
 {
-  "network": "xdai",
-  "startBlock": "14496725",
-  "omnibridge": "0x59447362798334d3485c64D1e4870Fde2DDC0d75",
-  "amb": "0x162E898bD0aacB578C8D5F8d6ca588c13d2A383F"
+  "network": "polis",
+  "startBlock": "1410898",
+  "omnibridge": "0xa69E679A9A57884dCc20A45B543232325dfC869a",
+  "amb": "0xCf27B036fC15b1520b03eb2A60C49a956B74673a"
 }

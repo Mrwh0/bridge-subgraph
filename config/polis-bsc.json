@@ -1,6 +1,6 @@
 {
   "network": "bsc",
-  "startBlock": "4792263",
-  "omnibridge": "0xF0b456250DC9990662a6F25808cC74A6d1131Ea9",
-  "amb": "0x05185872898b6f94AA600177EF41B9334B1FA48B"
+  "startBlock": "12984745",
+  "omnibridge": "0xecEAF9ef026f5f2614f10248920e33aF266CeD40",
+  "amb": "0x1D5609d5098bD5C802ab2580B89D926B021f3d30"
 }
