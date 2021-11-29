@@ -8,9 +8,6 @@ import { Execution, UserRequest, Token } from "../types/schema";
 
 import { fetchTokenInfo, getDirection } from "./helpers";
 
-import { getOverrides } from "./overrides";
-import * as net from "net";
-
 export function handleBridgeTransfer(event: TokensBridged): void {
   log.debug("Parsing TokensBridged for txHash {}", [
     event.transaction.hash.toHexString(),
@@ -65,15 +62,13 @@ export function handleNewToken(event: NewTokenRegistered): void {
 
   let network = dataSource.network();
   let direction = getDirection();
-  log.debug("Network", [network])
-  log.debug("Direction", [direction.toString()])
-  log.debug("TokenObject", [tokenObject.name])
-  if (network == "olympus" && direction.toString() == "fantom-polis") {
+
+  if (network == "olympus" && direction.toString() == "polis-fantom") {
     token.homeChainId = 333999;
     token.foreignChainId = 250;
     token.homeName = tokenObject.name;
     token.foreignName = tokenObject.name.slice(0, -8);
-  } else if (network == "fantom" && direction.toString() == "fantom-polis") {
+  } else if (network == "fantom" && direction.toString() == "polis-fantom") {
     token.homeChainId = 250;
     token.foreignChainId = 333999;
     token.homeName = tokenObject.name;
