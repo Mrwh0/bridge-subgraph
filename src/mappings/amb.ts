@@ -1,4 +1,4 @@
-import { BigInt, Bytes, log, crypto } from '@graphprotocol/graph-ts';
+import { BigInt, Bytes, log, crypto } from "@graphprotocol/graph-ts";
 import {
   UserRequestForAffirmation,
   UserRequestForSignature,
@@ -6,23 +6,23 @@ import {
   AffirmationCompleted,
   CollectedSignatures,
   AMB,
-} from '../types/AMB/AMB';
+} from "../types/AMB/AMB";
 
-import { UserRequest, Execution, Message } from '../types/schema';
+import { UserRequest, Execution, Message } from "../types/schema";
 
-import { decodeRecipient } from './helpers';
+import { decodeRecipient } from "./helpers";
 
 export function handleUserRequestForAffirmation(
-  event: UserRequestForAffirmation,
+  event: UserRequestForAffirmation
 ): void {
-  log.debug('Parsing UserRequestForAffirmation', []);
+  log.debug("Parsing UserRequestForAffirmation", []);
   let txHash = event.transaction.hash;
   let request = UserRequest.load(txHash.toHexString());
   if (request == null) {
     request = new UserRequest(txHash.toHexString());
   }
   let message = new Message(
-    crypto.keccak256(event.params.encodedData).toHexString(),
+    crypto.keccak256(event.params.encodedData).toHexString()
   );
   message.msgId = event.params.messageId;
   message.txHash = txHash;
@@ -37,16 +37,16 @@ export function handleUserRequestForAffirmation(
 }
 
 export function handleUserRequestForSignature(
-  event: UserRequestForSignature,
+  event: UserRequestForSignature
 ): void {
-  log.debug('Parsing UserRequestForSignature', []);
+  log.debug("Parsing UserRequestForSignature", []);
   let txHash = event.transaction.hash;
   let request = UserRequest.load(txHash.toHexString());
   if (request == null) {
     request = new UserRequest(txHash.toHexString());
   }
   let message = new Message(
-    crypto.keccak256(event.params.encodedData).toHexString(),
+    crypto.keccak256(event.params.encodedData).toHexString()
   );
   message.msgId = event.params.messageId;
   message.txHash = txHash;
@@ -61,7 +61,7 @@ export function handleUserRequestForSignature(
 }
 
 export function handleRelayedMessage(event: RelayedMessage): void {
-  log.debug('Parsing RelayedMessage', []);
+  log.debug("Parsing RelayedMessage", []);
   let txHash = event.transaction.hash;
   let execution = Execution.load(txHash.toHexString());
   if (execution == null) {
@@ -77,7 +77,7 @@ export function handleRelayedMessage(event: RelayedMessage): void {
 }
 
 export function handleAffirmationCompleted(event: AffirmationCompleted): void {
-  log.debug('Parsing AffirmationCompleted', []);
+  log.debug("Parsing AffirmationCompleted", []);
   let txHash = event.transaction.hash;
   let execution = Execution.load(txHash.toHexString());
   if (execution == null) {
@@ -93,7 +93,7 @@ export function handleAffirmationCompleted(event: AffirmationCompleted): void {
 }
 
 export function handleCollectedSignatures(event: CollectedSignatures): void {
-  log.debug('Parsing CollectedSignatures', []);
+  log.debug("Parsing CollectedSignatures", []);
   let ambInstance = AMB.bind(event.address);
   let message = ambInstance.try_message(event.params.messageHash);
   if (!message.reverted) {

@@ -1,7 +1,7 @@
-import { Bytes, Address, log, dataSource } from '@graphprotocol/graph-ts';
+import { Bytes, Address, log, dataSource } from "@graphprotocol/graph-ts";
 
-import { Token } from '../types/Omnibridge/Token';
-import { Token as TokenEntity } from '../types/schema';
+import { Token } from "../types/Omnibridge/Token";
+import { Token as TokenEntity } from "../types/schema";
 
 class TokenObject {
   address: Address;
@@ -13,47 +13,29 @@ class TokenObject {
 export function getDirection(): String {
   let network = dataSource.network();
   let address = dataSource.address();
-  if (network == 'xdai') {
+  if (network == "olympus") {
     if (
       address ==
-      Address.fromString('0x59447362798334d3485c64D1e4870Fde2DDC0d75')
-      // must add other bsc-xdai dedication-bridge addresses here in the future (if any)
+      Address.fromString("0xdbcEB62c9f00B1BFF0B34a85e19f6EE8A3e88BA3")
     ) {
-      return 'bsc-xdai';
-    } else if (
-      address ==
-      Address.fromString('0x63be59CF177cA9bb317DE8C4aa965Ddda93CB9d7')
-    ) {
-      return 'poa-xdai';
+      return "polis-fantom";
     }
-    return 'mainnet-xdai';
-  } else if (network == 'mainnet') {
+    return "";
+  } else if (network == "fantom") {
     if (
       address ==
-      Address.fromString('0x69c707d975e8d883920003CC357E556a4732CD03')
+      Address.fromString("0x5210297D69359939F36f8Fda38D1E0fE82fDb02B")
     ) {
-      return 'mainnet-bsc';
+      return "polis-fantom";
     }
-    return 'mainnet-xdai';
-  } else if (network == 'bsc') {
-    if (
-      address ==
-      Address.fromString('0xD83893F31AA1B6B9D97C9c70D3492fe38D24d218')
-    ) {
-      return 'mainnet-bsc';
-    }
-    return 'bsc-xdai';
-  } else if (network == 'poa-core') {
-    return 'poa-xdai';
-  } else if (network == 'poa-sokol' || network == 'kovan') {
-    return 'kovan-sokol';
+    return "";
   }
-  return '';
+  return "";
 }
 
 export function fetchTokenInfo(address: Address): TokenObject {
   let tokenInstance = Token.bind(address);
-  log.debug('TokenContract at {}', [address.toHex()]);
+  log.debug("TokenContract at {}", [address.toHex()]);
   let tokenObject = new TokenObject();
   tokenObject.address = address;
 
@@ -86,7 +68,7 @@ export function updateHomeToken(tokenAddress: Address): void {
 
 export function updateHomeTokenInfo(
   tokenAddress: Address,
-  tokenObject: TokenObject,
+  tokenObject: TokenObject
 ): void {
   let token = TokenEntity.load(tokenAddress.toHexString());
   if (token == null) {
@@ -97,28 +79,16 @@ export function updateHomeTokenInfo(
     token.homeAddress = tokenAddress;
 
     let network = dataSource.network();
-    if (network == 'xdai') {
-      token.homeChainId = 100;
+    if (network == "olympus") {
+      token.homeChainId = 333999;
       token.homeName = tokenObject.name;
-    } else if (network == 'poa-core') {
-      token.homeChainId = 99;
-      token.homeName = tokenObject.name;
-    } else if (network == 'poa-sokol') {
-      token.homeChainId = 77;
-      token.homeName = tokenObject.name;
-    } else if (network == 'kovan') {
-      token.homeChainId = 42;
-      token.homeName = tokenObject.name;
-    } else if (network == 'mainnet') {
-      token.homeChainId = 1;
-      token.homeName = tokenObject.name;
-    } else if (network == 'bsc') {
-      token.homeChainId = 56;
+    } else if (network == "fantom") {
+      token.homeChainId = 250;
       token.homeName = tokenObject.name;
     }
 
     token.save();
-    log.debug('New overridden homeToken {}', [token.homeAddress.toHexString()]);
+    log.debug("New overridden homeToken {}", [token.homeAddress.toHexString()]);
   }
 }
 
@@ -130,20 +100,20 @@ var METHOD_SIGNATURE_LENGTH = 4;
 var PADDED_LENGTH = 32;
 var ADDRESS_LENGTH = 20;
 
-var handleNativeTokensAndCall = Bytes.fromHexString('0x867f7a4d') as Bytes;
-var handleNativeTokens = Bytes.fromHexString('0x272255bb') as Bytes;
-var handleBridgedTokensAndCall = Bytes.fromHexString('0xc5345761') as Bytes;
-var handleBridgedTokens = Bytes.fromHexString('0x125e4cfb') as Bytes;
+var handleNativeTokensAndCall = Bytes.fromHexString("0x867f7a4d") as Bytes;
+var handleNativeTokens = Bytes.fromHexString("0x272255bb") as Bytes;
+var handleBridgedTokensAndCall = Bytes.fromHexString("0xc5345761") as Bytes;
+var handleBridgedTokens = Bytes.fromHexString("0x125e4cfb") as Bytes;
 var deployAndHandleBridgedTokensAndCall = Bytes.fromHexString(
-  '0xd522cfd7',
+  "0xd522cfd7"
 ) as Bytes;
-var deployAndHandleBridgedTokens = Bytes.fromHexString('0x2ae87cdd') as Bytes;
+var deployAndHandleBridgedTokens = Bytes.fromHexString("0x2ae87cdd") as Bytes;
 
 export function decodeRecipient(encodedData: Bytes): Bytes {
   let data = encodedData.subarray(HEADER_LENGTH + METHOD_SIGNATURE_LENGTH);
   let method = encodedData.subarray(
     HEADER_LENGTH,
-    HEADER_LENGTH + METHOD_SIGNATURE_LENGTH,
+    HEADER_LENGTH + METHOD_SIGNATURE_LENGTH
   ) as Bytes;
 
   if (
@@ -157,7 +127,7 @@ export function decodeRecipient(encodedData: Bytes): Bytes {
     // _value, 64 - 96
     return data.subarray(
       2 * PADDED_LENGTH - ADDRESS_LENGTH, // removing padded zeros
-      2 * PADDED_LENGTH,
+      2 * PADDED_LENGTH
     ) as Bytes;
   } else if (
     method == deployAndHandleBridgedTokens ||
@@ -171,7 +141,7 @@ export function decodeRecipient(encodedData: Bytes): Bytes {
     // _value, 160 - 192
     return data.subarray(
       5 * PADDED_LENGTH - ADDRESS_LENGTH, // removing padded zeros
-      5 * PADDED_LENGTH,
+      5 * PADDED_LENGTH
     ) as Bytes;
   }
   return null;

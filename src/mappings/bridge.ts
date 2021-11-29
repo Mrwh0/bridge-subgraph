@@ -1,20 +1,20 @@
-import { log, Address } from '@graphprotocol/graph-ts';
+import { log, Address } from "@graphprotocol/graph-ts";
 import {
   TokensBridgingInitiated,
   TokensBridged,
-} from '../types/Omnibridge/Bridge';
-import { Execution, UserRequest } from '../types/schema';
+} from "../types/Omnibridge/Bridge";
+import { Execution, UserRequest } from "../types/schema";
 
 import {
   fetchTokenInfo,
   updateHomeTokenInfo,
   updateHomeToken,
-} from './helpers';
+} from "./helpers";
 
-import { getMediatedTokens } from './overrides';
+import { getMediatedTokens } from "./overrides";
 
 export function handleBridgeTransfer(event: TokensBridged): void {
-  log.debug('Parsing TokensBridged for txHash {}', [
+  log.debug("Parsing TokensBridged for txHash {}", [
     event.transaction.hash.toHexString(),
   ]);
   let mediatedTokens = getMediatedTokens();
@@ -33,13 +33,13 @@ export function handleBridgeTransfer(event: TokensBridged): void {
   execution.messageId = event.params.messageId;
   execution.save();
 
-  log.debug('TokensBridged token {}', [execution.token.toHexString()]);
+  log.debug("TokensBridged token {}", [execution.token.toHexString()]);
 
   updateHomeToken(tokenAddress);
 }
 
 export function handleInitiateTransfer(event: TokensBridgingInitiated): void {
-  log.debug('Parsing TokensBridgingInitiated for txHash {}', [
+  log.debug("Parsing TokensBridgingInitiated for txHash {}", [
     event.transaction.hash.toHexString(),
   ]);
   let mediatedTokens = getMediatedTokens();
@@ -61,7 +61,7 @@ export function handleInitiateTransfer(event: TokensBridgingInitiated): void {
   request.messageId = event.params.messageId;
   request.save();
 
-  log.debug('TokensBridgingInitiated token {}', [request.token.toHexString()]);
+  log.debug("TokensBridgingInitiated token {}", [request.token.toHexString()]);
 
   updateHomeTokenInfo(tokenAddress, tokenInfo);
 }

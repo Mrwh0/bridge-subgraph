@@ -10,13 +10,12 @@
     "auth": "graph auth https://api.thegraph.com/deploy/ $GRAPH_ACCESS_TOKEN",
     "codegen": "graph codegen --output-dir src/types/",
     "build": "graph build",
-    "prepare-bsc-polis": "mustache config/bsc-polis.json subgraph.template.yaml > subgraph.yaml",
-    "deploy-bsc-polis": "graph create --node  https://graph.polis.tech/deploy/ polischain/bsc-to-polis-bridge && graph deploy polischain/bsc-to-polis-bridge --ipfs  https://ipfs.polis.tech/ --node  https://graph.polis.tech/deploy/",
-    "prepare-polis-bsc": "mustache config/polis-bsc.json subgraph.template.yaml > subgraph.yaml",
-    "deploy-polis-bsc": "graph deploy polischain/polis-to-bsc-bridge --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
+    "prepare-fantom-polis": "mustache config/fantom-polis.json subgraph.template.yaml > subgraph.yaml",
+    "deploy-fantom-polis": "graph create --node https://graph.polis.tech/deploy/ polischain/fantom-to-polis-bridge && graph deploy polischain/fantom-to-polis-bridge --ipfs  https://ipfs.polis.tech/ --node  https://graph.polis.tech/deploy/",
+    "prepare-polis-fantom": "mustache config/polis-fantom.json subgraph.template.yaml > subgraph.yaml",
+    "deploy-polis-fantom": "graph deploy polischain/polis-to-fantom-bridge --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
   },
   "devDependencies": {
-    "mustache": "4.2.0",
-    "prettier": "2.5.0"
+    "mustache": "4.2.0"
   }
 }
