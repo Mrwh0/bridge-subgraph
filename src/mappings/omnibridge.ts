@@ -73,6 +73,26 @@ export function handleNewToken(event: NewTokenRegistered): void {
     token.foreignChainId = 333999;
     token.homeName = tokenObject.name;
     token.foreignName = tokenObject.name.slice(0, -8);
+  } else if (network == "bsc" && direction.toString() == "polis-bsc") {
+    token.homeChainId = 56;
+    token.foreignChainId = 333999;
+    token.homeName = tokenObject.name;
+    token.foreignName = tokenObject.name.slice(0, -8);
+  } else if (network == "olympus" && direction.toString() == "polis-bsc") {
+    token.homeChainId = 333999;
+    token.foreignChainId = 56;
+    token.homeName = tokenObject.name;
+    token.foreignName = tokenObject.name.slice(0, -8);
+  } else if (network == "matic" && direction.toString() == "polis-matic") {
+    token.homeChainId = 137;
+    token.foreignChainId = 333999;
+    token.homeName = tokenObject.name;
+    token.foreignName = tokenObject.name.slice(0, -8);
+  } else if (network == "olympus" && direction.toString() == "polis-matic") {
+    token.homeChainId = 333999;
+    token.foreignChainId = 137;
+    token.homeName = tokenObject.name;
+    token.foreignName = tokenObject.name.slice(0, -8);
   }
 
   token.save();
