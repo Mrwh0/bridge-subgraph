@@ -32,6 +32,12 @@ export function getDirection(): String {
     ) {
       return "polis-matic";
     }
+    if (
+      address ==
+      Address.fromString("0x96ba6eFcF8c12547fd4a069370602904D50e4d34")
+    ) {
+      return "polis-mainnet";
+    }
     return "";
   } else if (network == "fantom") {
     if (
@@ -55,6 +61,14 @@ export function getDirection(): String {
       Address.fromString("0xDA4Afcd8c7305AbedEb676768b04D29412d60eFB")
     ) {
       return "polis-matic";
+    }
+    return "";
+  } else if (network == "mainnet") {
+    if (
+      address ==
+      Address.fromString("0x4f7488D150eA5295d20c8f0E3524b7897b1b7021")
+    ) {
+      return "polis-mainnet";
     }
     return "";
   }
@@ -118,6 +132,9 @@ export function updateHomeTokenInfo(
       token.homeName = tokenObject.name;
     } else if (network == "matic") {
       token.homeChainId = 137;
+      token.homeName = tokenObject.name;
+    } else if (network == "mainnet") {
+      token.homeChainId = 1;
       token.homeName = tokenObject.name;
     }
 
