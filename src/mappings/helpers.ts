@@ -38,6 +38,12 @@ export function getDirection(): String {
     ) {
       return "polis-mainnet";
     }
+    if (
+      address ==
+      Address.fromString("0xfB59876201405Aee8D8aDa645b168AFEdb442F76")
+    ) {
+      return "polis-avalanche";
+    }
     return "";
   } else if (network == "fantom") {
     if (
@@ -69,6 +75,14 @@ export function getDirection(): String {
       Address.fromString("0x4f7488D150eA5295d20c8f0E3524b7897b1b7021")
     ) {
       return "polis-mainnet";
+    }
+    return "";
+  } else if (network == "avalanche") {
+    if (
+      address ==
+      Address.fromString("0xfB59876201405Aee8D8aDa645b168AFEdb442F76")
+    ) {
+      return "polis-avalanche";
     }
     return "";
   }
@@ -136,8 +150,10 @@ export function updateHomeTokenInfo(
     } else if (network == "mainnet") {
       token.homeChainId = 1;
       token.homeName = tokenObject.name;
+    } else if (network == "avalanche") {
+      token.homeChainId = 43114;
+      token.homeName = tokenObject.name;
     }
-
     token.save();
     log.debug("New overridden homeToken {}", [token.homeAddress.toHexString()]);
   }
