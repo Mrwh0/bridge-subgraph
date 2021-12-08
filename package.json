@@ -27,6 +27,9 @@
     "deploy-polis-polygon": "graph deploy polischain/polis-to-polygon-bridge --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
     "prepare-polis-mainnet": "mustache config/polis-mainnet.json subgraph.template.yaml > subgraph.yaml",
     "deploy-polis-mainnet": "graph deploy polischain/polis-to-mainnet --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
+    "prepare-polis-avalanche": "mustache config/polis-avalanche.json subgraph.template.yaml > subgraph.yaml",
+    "deploy-polis-avalanche": "graph deploy polischain/polis-to-avalanche --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
+
   },
   "devDependencies": {
     "mustache": "4.2.0"
