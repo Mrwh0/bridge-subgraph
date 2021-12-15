@@ -44,6 +44,12 @@ export function getDirection(): String {
     ) {
       return "polis-avalanche";
     }
+    if (
+      address ==
+      Address.fromString("0x1A8D1775335366F1068e6078813160Abf84c26bd")
+    ) {
+      return "polis-iotex";
+    }
     return "";
   } else if (network == "fantom") {
     if (
@@ -81,6 +87,14 @@ export function getDirection(): String {
     if (
       address ==
       Address.fromString("0xfB59876201405Aee8D8aDa645b168AFEdb442F76")
+    ) {
+      return "polis-avalanche";
+    }
+    return "";
+  } else if (network == "iotex") {
+    if (
+      address ==
+      Address.fromString("0x712B61e244CB26c8bB41655913d8076E144C7A21")
     ) {
       return "polis-avalanche";
     }
@@ -152,6 +166,9 @@ export function updateHomeTokenInfo(
       token.homeName = tokenObject.name;
     } else if (network == "avalanche") {
       token.homeChainId = 43114;
+      token.homeName = tokenObject.name;
+    } else if (network == "iotex") {
+      token.homeChainId = 4689;
       token.homeName = tokenObject.name;
     }
     token.save();

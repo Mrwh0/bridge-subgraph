@@ -113,6 +113,16 @@ export function handleNewToken(event: NewTokenRegistered): void {
     token.foreignChainId = 43114;
     token.homeName = tokenObject.name;
     token.foreignName = tokenObject.name.slice(0, -8);
+  } else if (network == "iotex" && direction.toString() == "polis-iotex") {
+    token.homeChainId = 4689;
+    token.foreignChainId = 333999;
+    token.homeName = tokenObject.name;
+    token.foreignName = tokenObject.name.slice(0, -8);
+  } else if (network == "olympus" && direction.toString() == "polis-iotex") {
+    token.homeChainId = 333999;
+    token.foreignChainId = 4689;
+    token.homeName = tokenObject.name;
+    token.foreignName = tokenObject.name.slice(0, -8);
   }
 
   token.save();
