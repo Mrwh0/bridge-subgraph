@@ -3,29 +3,18 @@ services:
   graph-node:
     image: graphprotocol/graph-node
     ports:
-      - '8000:8000'
-      - '8001:8001'
-      - '8020:8020'
-      - '8030:8030'
-      - '8040:8040'
+      - '8001:8000'
+      - '8021:8020'
     depends_on:
-      - ipfs
       - postgres
     environment:
       postgres_host: postgres
       postgres_user: graph-node
       postgres_pass: let-me-in
       postgres_db: graph-node
-      ipfs: 'ipfs:5001'
+      ipfs: '127.0.0.1:5001'
       ethereum: 'olympus:https://rpc-tracing.polis.tech'
       GRAPH_LOG: debug
-    restart: always
-  ipfs:
-    image: ipfs/go-ipfs:v0.4.23
-    ports:
-      - '5001:5001'
-    volumes:
-      - ./data/ipfs:/data/ipfs
     restart: always
   postgres:
     image: postgres:13
