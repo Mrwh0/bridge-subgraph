@@ -34,7 +34,7 @@
     "prepare-polis-avalanche": "mustache config/polis-avalanche.json subgraph.template.yaml > subgraph.yaml",
     "deploy-polis-avalanche": "graph deploy mrwh0/polistoavalance --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
     "prepare-polis-iotex": "mustache config/polis-iotex.json subgraph.template.yaml > subgraph.yaml",
-    "deploy-polis-iotex": "graph create --debug --node https://rpc.graph.mainnet.iotex.io/ polischain/polis-to-iotex && graph deploy polischain/polis-to-iotex --ipfs https://graph.mainnet.iotex.io --node  https://rpc.graph.mainnet.iotex.io/"
+    "deploy-polis-iotex": "graph create --node http://159.223.124.171:8020/ polischain/polis-to-iotex-bridge && graph deploy polischain/polis-to-iotex-bridge --ipfs http://159.223.124.171:5001/ --node  http://159.223.124.171:8020/"
 
   },
   "devDependencies": {
